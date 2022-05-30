@@ -1,4 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -6,12 +9,14 @@ public class Calc {
     double a;
     double b;
     char operation;
-    void answer() {
+    double answer;
+    void getAnswer() {
         switch (operation) {
-            case '*': System.out.println(a * b); break;
-            case '-': System.out.println(a - b); break;
-            case '+': System.out.println(a + b); break;
-            case '/': System.out.println(a / b); break;
+            case '*': answer = a * b; System.out.println(answer); break;
+            case '-': answer = a - b; System.out.println(answer); break;
+            case '+': answer = a + b; System.out.println(answer); break;
+            case '/': answer = a / b; System.out.println(answer); break;
+
         }
     }
 
@@ -28,8 +33,22 @@ public class Calc {
         checkLine(line);
         String stAr [] = line.split(" ");
         Calc calc = new Calc(Double.parseDouble(stAr[0]), Double.parseDouble(stAr[2]), stAr[1].charAt(0));
-        calc.answer();
+        calc.getAnswer();
+        askAboutReadToFile(calc.answer +"");
 //после выполнения метода должна быть заданы а б и оператор);
+    }
+
+    private static void askAboutReadToFile(String in)  {
+        System.out.println("Do you wanna safe answer to txt file? yes / no");
+        if (s.nextLine().equals("yes")){
+           try {
+
+           BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("c://output.txt"));
+           bufferedWriter.write(in);
+           bufferedWriter.flush();
+           } catch (IOException ignored) {}
+        }
+
     }
 
     private static String insert() {
